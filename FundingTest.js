@@ -74,4 +74,44 @@ contract("Funding", async accounts => {
             assert.ok(/revert/.test(err.message));
         }
     });
+    
+    it('allows an owner to withdraw funds when goal is reached', async () => {
+        await funding.donate({ from: secondAccount, value: 30000000 * GWEI });
+        await funding.donate({ from: thirdAccount, value: 70000000 * GWEI });
+        const initBalance = await web3.eth.getBalance(firstAccount);
+        await funding.withdraw();
+        const finalBalance = await web3.eth.getBalance(firstAccount);
+        assert.isTrue(parseInt(finalBalance, 10) > parseInt(initBalance, 10));
+    });
+
+    it("does not allow non-owners to withdraw funds", async () => {
+        const goal = web3.utils.toHex(100000000 * GWEI);
+        funding = await Funding.new(DAY, goal,  {
+            from: secondAccount
+        });
+        await funding.donate({ from: firstAccount, value: 100000000 * GWEI});
+        try {
+            await funding.withdraw();
+            assert.fail();
+        } catch (err) {
+            assert.ok(/revert/.test(err.message));
+        }
+    });
+
+    it("does not allow for donations when time is up", async () => {
+        await funding.donate({ from: firstAccount, value: 10000000 * GWEI });
+        await utils.timeTravel(web3, DAY);
+        try {
+            await funding.donate({ from: firstAccount, value: 10000000 * GWEI });
+            assert.fail();
+        } catch (err) {
+            assert.ok(/revert/.test(err.message));
+        }
+    });
+
+    it("finishes fundraising when time is up", async () => {
+        assert.equal(await funding.isFinished.call(), false);
+        await utils.timeTravel(web3, DAY);
+        assert.equal(await funding.isFinished.call(), true);
+    });
 
