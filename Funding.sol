@@ -14,3 +14,23 @@ contract Funding {
         finishesAt = block.timestamp + _duration;
         goal = _goal;
     }
+    
+    modifier onlyOwner() {
+        require(owner == msg.sender);
+        _;
+    }
+
+    modifier onlyFunded() {
+        require(isFunded());
+        _;
+    }
+
+    modifier onlyNotFunded() {
+        require(!isFunded());
+        _;
+    }
+
+    modifier onlyFinished() {
+        require(isFinished());
+        _;
+    }
