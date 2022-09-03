@@ -51,3 +51,17 @@ contract Funding {
         owner.transfer(address(this).balance);
     }
     
+    modifier onlyNotFinished() {
+        require(!isFinished());
+        _;
+    }
+
+    function isFinished() public view returns (bool) {
+        return finishesAt <= block.timestamp;
+    }
+
+    function donate() public payable onlyNotFinished {
+        balances[msg.sender] += msg.value;
+        moneyRaised += msg.value;
+    }
+}
