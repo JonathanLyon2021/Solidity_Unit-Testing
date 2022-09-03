@@ -34,3 +34,20 @@ contract Funding {
         require(isFinished());
         _;
     }
+    
+    function refund() public onlyFinished onlyNotFunded {
+        uint256 amount = balances[msg.sender];
+        require(amount > 0);
+
+        balances[msg.sender] = 0;
+        payable(msg.sender).transfer(amount);
+    }
+
+    function isFunded() public view returns (bool) {
+        return moneyRaised >= goal;
+    }
+
+    function withdraw() public onlyOwner onlyFunded {
+        owner.transfer(address(this).balance);
+    }
+    
