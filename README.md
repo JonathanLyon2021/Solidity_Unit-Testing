@@ -11,3 +11,8 @@ are just unable to refund those funds.
 
 # Language 
     Solidity version ^0.8.7
+
+# Prerequisites
+ Truffle v5.4.15. If you need the specific version of Truffle try:
+               
+               npm install -g truffle@5.4.15
