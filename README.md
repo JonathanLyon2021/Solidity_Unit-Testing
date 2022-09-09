@@ -9,3 +9,5 @@ funds. We want to also allow for “anonymous” donation which is merely a tran
 Even if we are saying anonymous, you need to know that all transactions are publicly visible via Ether transfer. We
 are just unable to refund those funds.
 
+# Language 
+    Solidity version ^0.8.7
