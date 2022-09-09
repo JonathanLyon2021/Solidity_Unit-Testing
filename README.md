@@ -10,9 +10,13 @@ Even if we are saying anonymous, you need to know that all transactions are publ
 are just unable to refund those funds.
 
 # Language 
-    Solidity version ^0.8.7
+    Solidity version ^0.8.7 +commit.e28d00a7.Emscripten.clang (solc-js)
 
 # Prerequisites
  Truffle v5.4.15. If you need the specific version of Truffle try:
                
                npm install -g truffle@5.4.15
+               
+- Solidity - 0.8.7+commit.e28d00a7.Emscripten.clang (solc-js)
+- Node v15.14.0
+- Web3.js v1.2.6
