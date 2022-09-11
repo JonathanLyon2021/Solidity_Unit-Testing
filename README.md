@@ -1,5 +1,5 @@
 # Solidity_Unit-Testing
-This is a combination of exercises 4 & 5 from MI4 in Kingsland Universities Blockchain Developer Program.
+This is a combination of Exercise 4 & Exercise 5 from MI4 in Kingsland Universities Blockchain Developer Program.
 
 # Exercise Goals
   The goal of this exercise is to build a contract for fund raising and create unit tests for it. Mechanics are the same as
